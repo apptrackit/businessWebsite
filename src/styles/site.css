@@ -308,7 +308,7 @@ button:focus-visible,
 .sections {
   margin-top: 0;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
 }
 
@@ -475,6 +475,7 @@ button:focus-visible,
 }
 
 .visual-card {
+  grid-column: 1 / -1;
   display: grid;
   gap: 0.9rem;
 }
@@ -681,6 +682,10 @@ button:focus-visible,
 
   .sections {
     grid-template-columns: 1fr;
+  }
+
+  .visual-card {
+    grid-column: auto;
   }
 
   .showcase,
