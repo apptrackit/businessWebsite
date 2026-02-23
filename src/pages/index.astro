@@ -346,8 +346,17 @@ const showcaseShots: ShowcaseShot[] = [
 			if (floatingFooter || floatingHeader) {
 				let lastY = window.scrollY;
 				let ticking = false;
+				const shouldAnimateBars = () => window.innerWidth > 900;
 
 				const updateBarsVisibility = () => {
+					if (!shouldAnimateBars()) {
+						floatingFooter?.classList.remove('is-hidden');
+						floatingHeader?.classList.remove('is-hidden');
+						lastY = window.scrollY;
+						ticking = false;
+						return;
+					}
+
 					const y = window.scrollY;
 					const delta = y - lastY;
 
@@ -369,6 +378,9 @@ const showcaseShots: ShowcaseShot[] = [
 						ticking = true;
 					}
 				}, { passive: true });
+
+				window.addEventListener('resize', updateBarsVisibility, { passive: true });
+				updateBarsVisibility();
 			}
 		</script>
 
@@ -376,15 +388,16 @@ const showcaseShots: ShowcaseShot[] = [
 			import Lenis from 'lenis';
 
 			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			const enableLenis = window.innerWidth > 900;
 
-			if (!reduceMotion) {
+			if (!reduceMotion && enableLenis) {
 				const lenis = new Lenis({
-					duration: 1,
+					duration: 0.92,
 					easing: (t) => 1 - Math.pow(1 - t, 3),
 					smoothWheel: true,
 					syncTouch: false,
-					touchMultiplier: 1.15,
-					wheelMultiplier: 0.95
+					touchMultiplier: 1,
+					wheelMultiplier: 0.92
 				});
 
 				const raf = (time: number) => {

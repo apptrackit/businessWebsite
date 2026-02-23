@@ -37,6 +37,7 @@ body {
 body {
   line-height: 1.6;
   background-attachment: fixed;
+  overflow-x: clip;
 }
 
 html {
@@ -59,7 +60,7 @@ html.lenis body {
 .site-shell {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 5.2rem 1rem 7rem;
+  padding: 5.2rem clamp(0.7rem, 2.4vw, 1rem) 7rem;
 }
 
 .snap-stage {
@@ -86,8 +87,8 @@ html.lenis body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  padding: 0.8rem 1rem;
+  gap: 0.7rem;
+  padding: 0.55rem 0.8rem;
   margin-bottom: 1rem;
 }
 
@@ -113,7 +114,7 @@ html.lenis body {
 
 .nav-links {
   display: flex;
-  gap: 0.8rem;
+  gap: 0.55rem;
   flex-wrap: wrap;
   align-items: center;
 }
@@ -126,7 +127,8 @@ html.lenis body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.45rem 0.7rem;
+  min-height: 36px;
+  padding: 0.34rem 0.6rem;
   border-radius: 999px;
   border: 1px solid var(--glass-border);
   background: var(--surface);
@@ -136,13 +138,13 @@ html.lenis body {
 
 .dropdown-label {
   color: var(--muted);
-  font-size: 0.84rem;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
 .dropdown-value {
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 .dropdown-caret {
@@ -218,6 +220,10 @@ html.lenis body {
   align-items: center;
 }
 
+.hero-copy {
+  max-width: 64ch;
+}
+
 .hero-copy h1 {
   font-size: clamp(1.6rem, 3.2vw, 2.8rem);
   line-height: 1.16;
@@ -240,6 +246,10 @@ button,
   background: var(--surface);
   border: 1px solid var(--glass-border);
   border-radius: 999px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: var(--fg);
   padding: 0.65rem 1.1rem;
   text-decoration: none;
@@ -554,6 +564,16 @@ button:focus-visible,
   opacity: 0;
 }
 
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-visual {
+    min-height: 280px;
+  }
+}
+
 @media (max-width: 900px) {
   .snap-stage {
     padding-block: 0;
@@ -584,20 +604,71 @@ button:focus-visible,
 
 @media (max-width: 720px) {
   .site-shell {
-    padding-top: 6rem;
+    padding-top: 5.8rem;
+    padding-bottom: 8.6rem;
   }
 
   .nav {
-    align-items: flex-start;
-    flex-direction: column;
+    gap: 0.6rem;
+    padding: 0.65rem 0.75rem;
   }
 
   .nav-links {
     width: 100%;
+    gap: 0.55rem;
+    align-items: stretch;
+  }
+
+  .custom-dropdown {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .dropdown-trigger {
+    min-height: 44px;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0.5rem 0.65rem;
+  }
+
+  .dropdown-label {
+    font-size: 0.78rem;
+  }
+
+  .dropdown-value {
+    font-size: 0.9rem;
+  }
+
+  .hero {
+    padding: 1rem;
+    gap: 0.85rem;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(1.95rem, 8.2vw, 2.35rem);
+    line-height: 1.1;
+  }
+
+  .hero-copy p {
+    font-size: 1rem;
+  }
+
+  .hero-visual {
+    min-height: 240px;
+  }
+
+  .artifact-canvas {
+    filter: drop-shadow(0 0 24px color-mix(in srgb, var(--primary) 65%, transparent));
   }
 
   .sections {
     grid-template-columns: 1fr;
+  }
+
+  .showcase,
+  .team-links,
+  .section-card {
+    padding: 1rem;
   }
 
   .showcase-grid {
@@ -613,11 +684,11 @@ button:focus-visible,
   }
 
   .shot {
-    grid-template-rows: 170px auto;
+    grid-template-rows: 160px auto;
   }
 
   .shot img {
-    height: 170px;
+    height: 160px;
   }
 
   .shot h3 {
@@ -633,12 +704,43 @@ button:focus-visible,
     bottom: 0.5rem;
     padding: 0.8rem;
     font-size: 0.92rem;
+    gap: 0.25rem;
   }
 
   .floating-header {
     width: calc(100vw - 1rem);
     top: 0.5rem;
     padding: 0.7rem 0.8rem;
+  }
+
+  .footer span {
+    width: 100%;
+    text-align: left;
+  }
+
+  .external-links {
+    width: 100%;
+    gap: 0.6rem;
+  }
+
+  .external-links .link-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .site-shell {
+    padding-top: 5.45rem;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(1.75rem, 9vw, 2.05rem);
+  }
+
+  .showcase-head p,
+  .section-card p,
+  .team-links p {
+    font-size: 0.95rem;
   }
 }
 
