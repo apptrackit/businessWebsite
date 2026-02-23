@@ -47,7 +47,7 @@ const showcaseShots: ShowcaseShot[] = [
 					<span>{config.company.name}</span>
 				</div>
 				<div class="nav-links nav-controls">
-					<div class="custom-dropdown" data-dropdown="locale">
+					<div class="custom-dropdown desktop-dropdown" data-dropdown="locale">
 						<button class="dropdown-trigger" type="button" aria-expanded="false" aria-controls="locale-menu">
 							<span class="dropdown-label" data-i18n="languageLabel">{localeCopy.languageLabel}</span>
 							<span class="dropdown-value" id="locale-current">HU</span>
@@ -59,7 +59,7 @@ const showcaseShots: ShowcaseShot[] = [
 						</div>
 					</div>
 
-					<div class="custom-dropdown" data-dropdown="theme">
+					<div class="custom-dropdown desktop-dropdown" data-dropdown="theme">
 						<button class="dropdown-trigger" type="button" aria-expanded="false" aria-controls="theme-menu">
 							<span class="dropdown-label" data-i18n="themeLabel">{localeCopy.themeLabel}</span>
 							<span class="dropdown-value" id="theme-current" data-i18n="themeDark">{localeCopy.themeDark}</span>
@@ -68,6 +68,25 @@ const showcaseShots: ShowcaseShot[] = [
 						<div class="dropdown-menu" id="theme-menu" role="menu">
 							<button class="dropdown-item" type="button" data-theme-value="light" data-i18n="themeLight">{localeCopy.themeLight}</button>
 							<button class="dropdown-item" type="button" data-theme-value="dark" data-i18n="themeDark">{localeCopy.themeDark}</button>
+						</div>
+					</div>
+
+					<div class="custom-dropdown mobile-dropdown" data-dropdown="mobile-controls">
+						<button class="dropdown-trigger" type="button" aria-expanded="false" aria-controls="mobile-controls-menu">
+							<span class="dropdown-value" id="mobile-controls-current">HU · {localeCopy.themeDark}</span>
+							<span class="dropdown-caret" aria-hidden="true">⌄</span>
+						</button>
+						<div class="dropdown-menu dropdown-menu--mobile" id="mobile-controls-menu" role="menu">
+							<p class="dropdown-group-title" data-i18n="languageLabel">{localeCopy.languageLabel}</p>
+							<div class="dropdown-group">
+								<button class="dropdown-item" type="button" data-locale-value="hu">HU</button>
+								<button class="dropdown-item" type="button" data-locale-value="en">EN</button>
+							</div>
+							<p class="dropdown-group-title" data-i18n="themeLabel">{localeCopy.themeLabel}</p>
+							<div class="dropdown-group">
+								<button class="dropdown-item" type="button" data-theme-value="light" data-i18n="themeLight">{localeCopy.themeLight}</button>
+								<button class="dropdown-item" type="button" data-theme-value="dark" data-i18n="themeDark">{localeCopy.themeDark}</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -186,6 +205,7 @@ const showcaseShots: ShowcaseShot[] = [
 			const parsedConfig = JSON.parse(uiConfig);
 			const localeCurrent = document.querySelector('#locale-current');
 			const themeCurrent = document.querySelector('#theme-current');
+			const mobileControlsCurrent = document.querySelector('#mobile-controls-current');
 			const ctaNode = document.querySelector('#contact-btn');
 			const root = document.documentElement;
 			const floatingHeader = document.querySelector('#floating-header');
@@ -195,8 +215,24 @@ const showcaseShots: ShowcaseShot[] = [
 			const lightboxImage = document.querySelector('#lightbox-image');
 			const lightboxTitle = document.querySelector('#lightbox-title');
 			const floatingFooter = document.querySelector('#floating-footer');
+			const footerTagline = document.querySelector('#floating-footer [data-i18n="footerTagline"]');
 			const dropdowns = Array.from(document.querySelectorAll('.custom-dropdown'));
 			let currentLocale = localStorage.getItem('velox-locale') || 'hu';
+
+			const syncFooterTaglineFit = () => {
+				if (!footerTagline) return;
+				const currentText = (footerTagline.textContent || '').trim();
+				const fullText = footerTagline.getAttribute('data-full-text') || currentText || 'Tarckit';
+
+				footerTagline.setAttribute('data-full-text', fullText);
+				footerTagline.textContent = fullText;
+
+				requestAnimationFrame(() => {
+					if (!footerTagline) return;
+					const isOverflowing = footerTagline.scrollWidth > footerTagline.clientWidth + 1;
+					footerTagline.textContent = isOverflowing ? 'Tarckit' : fullText;
+				});
+			};
 
 			const closeAllDropdowns = () => {
 				dropdowns.forEach((dropdown) => {
@@ -204,6 +240,14 @@ const showcaseShots: ShowcaseShot[] = [
 					const trigger = dropdown.querySelector('.dropdown-trigger');
 					if (trigger) trigger.setAttribute('aria-expanded', 'false');
 				});
+			};
+
+			const syncMobileControlsCurrent = () => {
+				if (!mobileControlsCurrent) return;
+				const localeData = parsedConfig.locales[currentLocale] || parsedConfig.locales.hu;
+				const activeTheme = root.getAttribute('data-theme') || 'light';
+				const themeLabel = activeTheme === 'dark' ? localeData.themeDark : localeData.themeLight;
+				mobileControlsCurrent.textContent = `${currentLocale.toUpperCase()} · ${themeLabel}`;
 			};
 
 			const applyLocale = (localeKey) => {
@@ -237,6 +281,8 @@ const showcaseShots: ShowcaseShot[] = [
 					themeCurrent.textContent = activeTheme === 'dark' ? localeData.themeDark : localeData.themeLight;
 				}
 
+				syncMobileControlsCurrent();
+
 				localStorage.setItem('velox-locale', localeKey);
 
 				const botondUrl = parsedConfig.company?.links?.botond?.[localeKey] || parsedConfig.company?.links?.botond?.en;
@@ -251,6 +297,8 @@ const showcaseShots: ShowcaseShot[] = [
 					benceLink.setAttribute('href', benceUrl);
 					benceLink.textContent = benceUrl.replace('https://', '');
 				}
+
+				syncFooterTaglineFit();
 			};
 
 			const applyTheme = (theme) => {
@@ -263,6 +311,8 @@ const showcaseShots: ShowcaseShot[] = [
 					const localeData = parsedConfig.locales[currentLocale] || parsedConfig.locales.hu;
 					themeCurrent.textContent = theme === 'dark' ? localeData.themeDark : localeData.themeLight;
 				}
+
+				syncMobileControlsCurrent();
 
 				localStorage.setItem('velox-theme', theme);
 			};
@@ -400,9 +450,14 @@ const showcaseShots: ShowcaseShot[] = [
 					}
 				}, { passive: true });
 
-				window.addEventListener('resize', updateBarsVisibility, { passive: true });
+				window.addEventListener('resize', () => {
+					updateBarsVisibility();
+					syncFooterTaglineFit();
+				}, { passive: true });
 				updateBarsVisibility();
 			}
+
+			syncFooterTaglineFit();
 		</script>
 
 		<script>
