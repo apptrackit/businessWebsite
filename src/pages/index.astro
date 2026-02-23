@@ -14,6 +14,70 @@ const withBase = (path: string) => {
 	const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 	return `${base}${path.replace(/^\/+/, '')}`;
 };
+
+const siteUrl = new URL(import.meta.env.SITE ?? 'https://tarckit.com');
+const canonicalUrl = new URL(import.meta.env.BASE_URL || '/', siteUrl).toString();
+const ogImageUrl = new URL(withBase('images/placeholders/concept-1.svg'), siteUrl).toString();
+const seoTitle = `${config.company.name} | ${localeCopy.headline}`;
+const seoDescription = `${localeCopy.hero} ${localeCopy.sub}`;
+const seoKeywordsByLocale = {
+	hu: 'weboldal készítés, üzleti weboldal, prémium webdesign, webfejlesztés, seo weboldal, konverzió optimalizálás, landing page készítés, céges weboldal',
+	en: 'business website design, premium web development, conversion focused website, landing page design, SEO ready website, web design agency, custom website development'
+};
+const seoKeywords = seoKeywordsByLocale[activeLocale] ?? seoKeywordsByLocale.en;
+const localeTag = activeLocale === 'hu' ? 'hu_HU' : 'en_US';
+const alternateLocaleTag = activeLocale === 'hu' ? 'en_US' : 'hu_HU';
+const sameAsLinks = Array.from(new Set([
+	config.company.links.botond.hu,
+	config.company.links.botond.en,
+	config.company.links.bence.hu,
+	config.company.links.bence.en
+]));
+
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'WebSite',
+			'@id': `${canonicalUrl}#website`,
+			url: canonicalUrl,
+			name: config.company.name,
+			inLanguage: activeLocale,
+			description: seoDescription,
+			publisher: {
+				'@id': `${canonicalUrl}#organization`
+			}
+		},
+		{
+			'@type': 'Organization',
+			'@id': `${canonicalUrl}#organization`,
+			name: config.company.name,
+			url: canonicalUrl,
+			logo: new URL(withBase('favicon.svg'), siteUrl).toString(),
+			sameAs: sameAsLinks
+		},
+		{
+			'@type': 'ProfessionalService',
+			'@id': `${canonicalUrl}#service`,
+			name: `${config.company.name} Web Design & Development`,
+			url: canonicalUrl,
+			image: ogImageUrl,
+			description: seoDescription,
+			serviceType: [
+				'Business Website Design',
+				'Custom Web Development',
+				'Landing Page Design',
+				'Website Maintenance',
+				'SEO-ready Information Architecture'
+			],
+			areaServed: 'Worldwide',
+			provider: {
+				'@id': `${canonicalUrl}#organization`
+			}
+		}
+	]
+};
+
 const faviconHref = withBase('favicon.svg?v=2');
 type LocaleCopy = typeof localeCopy;
 
@@ -40,9 +104,36 @@ const showcaseShots: ShowcaseShot[] = [
 		<link rel="icon" type="image/svg+xml" href={faviconHref} />
 		<link rel="shortcut icon" type="image/svg+xml" href={faviconHref} />
 		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={seoDescription} />
+		<meta name="keywords" content={seoKeywords} />
+		<meta name="author" content={config.company.name} />
+		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+		<meta name="theme-color" content={config.design.primaryColor} />
+
+		<link rel="canonical" href={canonicalUrl} />
+		<link rel="alternate" hreflang="hu" href={canonicalUrl} />
+		<link rel="alternate" hreflang="en" href={canonicalUrl} />
+		<link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={config.company.name} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:title" content={seoTitle} />
+		<meta property="og:description" content={seoDescription} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta property="og:image:alt" content={localeCopy.shotOneTitle} />
+		<meta property="og:locale" content={localeTag} />
+		<meta property="og:locale:alternate" content={alternateLocaleTag} />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={seoTitle} />
+		<meta name="twitter:description" content={seoDescription} />
+		<meta name="twitter:image" content={ogImageUrl} />
+
 		<meta name="generator" content={Astro.generator} />
 		<ViewTransitions />
-		<title>{config.company.name}</title>
+		<title>{seoTitle}</title>
+		<script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
 	</head>
 	<body style={`--primary: ${config.design.primaryColor};`}>
 		<main class="site-shell">
@@ -412,6 +503,9 @@ const showcaseShots: ShowcaseShot[] = [
 				const triggerRipple = () => window.dispatchEvent(new CustomEvent('hero-artifact:ripple'));
 				ctaNode.addEventListener('mouseenter', triggerRipple);
 				ctaNode.addEventListener('focus', triggerRipple);
+				ctaNode.addEventListener('click', () => {
+					window.location.href = 'mailto:contact@ballabotond.com,work@szilagyibence.com';
+				});
 			}
 
 			const storedTheme = localStorage.getItem('velox-theme');
