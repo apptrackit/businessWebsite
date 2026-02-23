@@ -1,0 +1,20 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg4" x1="0" y1="0" x2="1200" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10162A"/>
+      <stop offset="1" stop-color="#1D2550"/>
+    </linearGradient>
+    <radialGradient id="orb4" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(320 240) rotate(90) scale(200 200)">
+      <stop stop-color="#7A73FF" stop-opacity="0.62"/>
+      <stop offset="1" stop-color="#7A73FF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="760" fill="url(#bg4)"/>
+  <rect x="70" y="70" width="1060" height="620" rx="28" stroke="#A1AAFF" stroke-opacity="0.25"/>
+  <circle cx="320" cy="240" r="190" fill="url(#orb4)"/>
+  <rect x="560" y="140" width="500" height="90" rx="18" fill="#141D3E" fill-opacity="0.85"/>
+  <rect x="560" y="260" width="500" height="120" rx="20" fill="#141D3E" fill-opacity="0.7"/>
+  <rect x="560" y="410" width="500" height="190" rx="24" fill="#141D3E" fill-opacity="0.65"/>
+  <path d="M170 500C250 410 340 360 460 340C590 320 700 345 830 300" stroke="#96A0FF" stroke-opacity="0.35" stroke-width="3"/>
+  <path d="M170 560C280 480 360 450 500 445C650 440 760 470 900 430" stroke="#96A0FF" stroke-opacity="0.2" stroke-width="3"/>
+</svg>

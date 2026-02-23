@@ -6,6 +6,23 @@ import '../styles/site.css';
 
 const activeLocale = 'hu';
 const localeCopy = config.locales[activeLocale];
+type LocaleCopy = typeof localeCopy;
+
+interface ShowcaseShot {
+	src: string;
+	altKey: keyof LocaleCopy;
+	titleKey: keyof LocaleCopy;
+	descKey: keyof LocaleCopy;
+}
+
+const showcaseShots: ShowcaseShot[] = [
+	{ src: '/images/placeholders/concept-1.svg', altKey: 'shotOneAlt', titleKey: 'shotOneTitle', descKey: 'shotOneDesc' },
+	{ src: '/images/placeholders/concept-2.svg', altKey: 'shotTwoAlt', titleKey: 'shotTwoTitle', descKey: 'shotTwoDesc' },
+	{ src: '/images/placeholders/concept-3.svg', altKey: 'shotThreeAlt', titleKey: 'shotThreeTitle', descKey: 'shotThreeDesc' },
+	{ src: '/images/placeholders/concept-4.svg', altKey: 'shotFourAlt', titleKey: 'shotFourTitle', descKey: 'shotFourDesc' },
+	{ src: '/images/placeholders/concept-5.svg', altKey: 'shotFiveAlt', titleKey: 'shotFiveTitle', descKey: 'shotFiveDesc' },
+	{ src: '/images/placeholders/concept-6.svg', altKey: 'shotSixAlt', titleKey: 'shotSixTitle', descKey: 'shotSixDesc' }
+];
 ---
 
 <html lang={activeLocale}>
@@ -62,6 +79,24 @@ const localeCopy = config.locales[activeLocale];
 				</div>
 			</section>
 
+			<section class="showcase glass-card">
+				<div class="showcase-head">
+					<h2 data-i18n="showcaseTitle">{localeCopy.showcaseTitle}</h2>
+					<p data-i18n="showcaseLead">{localeCopy.showcaseLead}</p>
+				</div>
+				<div class="showcase-grid">
+					{showcaseShots.map((shot, index) => (
+						<figure class={`shot shot--${index + 1}`} data-shot data-shot-src={shot.src} data-shot-title-key={shot.titleKey}>
+							<img src={shot.src} alt={localeCopy[shot.altKey]} data-i18n-alt={shot.altKey} loading="lazy" />
+							<figcaption>
+								<h3 data-i18n={shot.titleKey}>{localeCopy[shot.titleKey]}</h3>
+								<p data-i18n={shot.descKey}>{localeCopy[shot.descKey]}</p>
+							</figcaption>
+						</figure>
+					))}
+				</div>
+			</section>
+
 			<section class="sections">
 				<article class="section-card glass-card">
 					<h2 data-i18n="pricingTitle">{localeCopy.pricingTitle}</h2>
@@ -109,6 +144,17 @@ const localeCopy = config.locales[activeLocale];
 				<span data-i18n="footerTagline">{localeCopy.footerTagline}</span>
 				<span data-i18n="footerConfig">{localeCopy.footerConfig}</span>
 			</footer>
+
+			<div class="lightbox" id="lightbox" hidden>
+				<div class="lightbox-backdrop" data-lightbox-close></div>
+				<div class="lightbox-panel glass-card" role="dialog" aria-modal="true" aria-label="Image preview">
+					<button class="lightbox-close" id="lightbox-close" type="button" data-lightbox-close data-i18n="closePreview">
+						{localeCopy.closePreview}
+					</button>
+					<h3 id="lightbox-title"></h3>
+					<img id="lightbox-image" src="" alt="" />
+				</div>
+			</div>
 		</main>
 
 		<script is:inline define:vars={{ uiConfig: JSON.stringify(config) }}>
@@ -117,6 +163,9 @@ const localeCopy = config.locales[activeLocale];
 			const themeCurrent = document.querySelector('#theme-current');
 			const ctaNode = document.querySelector('#contact-btn');
 			const root = document.documentElement;
+			const lightbox = document.querySelector('#lightbox');
+			const lightboxImage = document.querySelector('#lightbox-image');
+			const lightboxTitle = document.querySelector('#lightbox-title');
 			const dropdowns = Array.from(document.querySelectorAll('.custom-dropdown'));
 			let currentLocale = localStorage.getItem('velox-locale') || 'hu';
 
@@ -138,6 +187,12 @@ const localeCopy = config.locales[activeLocale];
 					const key = node.getAttribute('data-i18n');
 					if (!key || !localeData[key]) return;
 					node.textContent = localeData[key];
+				});
+
+				document.querySelectorAll('[data-i18n-alt]').forEach((node) => {
+					const key = node.getAttribute('data-i18n-alt');
+					if (!key || !localeData[key]) return;
+					node.setAttribute('alt', localeData[key]);
 				});
 
 				if (localeCurrent) {
@@ -168,6 +223,22 @@ const localeCopy = config.locales[activeLocale];
 				}
 
 				localStorage.setItem('velox-theme', theme);
+			};
+
+			const openLightbox = (src, titleKey) => {
+				if (!lightbox || !lightboxImage || !lightboxTitle) return;
+				const localeData = parsedConfig.locales[currentLocale] || parsedConfig.locales.hu;
+				lightboxImage.setAttribute('src', src);
+				lightboxImage.setAttribute('alt', localeData[titleKey] || 'preview image');
+				lightboxTitle.textContent = localeData[titleKey] || '';
+				lightbox.hidden = false;
+				document.body.style.overflow = 'hidden';
+			};
+
+			const closeLightbox = () => {
+				if (!lightbox) return;
+				lightbox.hidden = true;
+				document.body.style.overflow = '';
 			};
 
 			const initialLocale = currentLocale;
@@ -215,7 +286,21 @@ const localeCopy = config.locales[activeLocale];
 			document.addEventListener('keydown', (event) => {
 				if (event.key === 'Escape') {
 					closeAllDropdowns();
+					closeLightbox();
 				}
+			});
+
+			document.querySelectorAll('[data-shot]').forEach((shot) => {
+				shot.addEventListener('click', () => {
+					const src = shot.getAttribute('data-shot-src');
+					const titleKey = shot.getAttribute('data-shot-title-key');
+					if (!src || !titleKey) return;
+					openLightbox(src, titleKey);
+				});
+			});
+
+			document.querySelectorAll('[data-lightbox-close]').forEach((node) => {
+				node.addEventListener('click', closeLightbox);
 			});
 
 			if (ctaNode) {
