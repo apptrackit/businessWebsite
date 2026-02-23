@@ -96,7 +96,15 @@ const showcaseShots: ShowcaseShot[] = [
 					</div>
 					<div class="showcase-grid">
 						{showcaseShots.map((shot, index) => (
-							<figure class={`shot shot--${index + 1}`} data-shot data-shot-src={shot.src} data-shot-title-key={shot.titleKey}>
+							<figure
+								class={`shot shot--${index + 1}`}
+								data-shot
+								data-shot-src={shot.src}
+								data-shot-title-key={shot.titleKey}
+								role="button"
+								tabindex="0"
+								aria-label={localeCopy[shot.titleKey]}
+							>
 								<img src={shot.src} alt={localeCopy[shot.altKey]} data-i18n-alt={shot.altKey} loading="lazy" />
 								<figcaption>
 									<h3 data-i18n={shot.titleKey}>{localeCopy[shot.titleKey]}</h3>
@@ -162,13 +170,16 @@ const showcaseShots: ShowcaseShot[] = [
 			<div class="lightbox" id="lightbox" hidden>
 				<div class="lightbox-backdrop" data-lightbox-close></div>
 				<div class="lightbox-panel glass-card" role="dialog" aria-modal="true" aria-label="Image preview">
-					<button class="lightbox-close" id="lightbox-close" type="button" data-lightbox-close data-i18n="closePreview">
-						{localeCopy.closePreview}
-					</button>
-					<h3 id="lightbox-title"></h3>
+					<div class="lightbox-topbar">
+						<h3 id="lightbox-title"></h3>
+						<button class="lightbox-close" id="lightbox-close" type="button" data-lightbox-close data-i18n="closePreview">
+							{localeCopy.closePreview}
+						</button>
+					</div>
 					<img id="lightbox-image" src="" alt="" />
 				</div>
 			</div>
+
 		</main>
 
 		<script is:inline define:vars={{ uiConfig: JSON.stringify(config) }}>
@@ -322,11 +333,19 @@ const showcaseShots: ShowcaseShot[] = [
 			});
 
 			document.querySelectorAll('[data-shot]').forEach((shot) => {
-				shot.addEventListener('click', () => {
+				const openFromShot = () => {
 					const src = shot.getAttribute('data-shot-src');
 					const titleKey = shot.getAttribute('data-shot-title-key');
 					if (!src || !titleKey) return;
 					openLightbox(src, titleKey);
+				};
+
+				shot.addEventListener('click', openFromShot);
+				shot.addEventListener('keydown', (event) => {
+					if (event.key === 'Enter' || event.key === ' ') {
+						event.preventDefault();
+						openFromShot();
+					}
 				});
 			});
 
