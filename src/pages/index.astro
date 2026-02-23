@@ -66,81 +66,89 @@ const showcaseShots: ShowcaseShot[] = [
 				</div>
 			</nav>
 
-			<section class="hero glass-card">
-				<div class="hero-copy">
-					<h1 data-i18n="headline">{localeCopy.headline}</h1>
-					<p id="hero-copy" data-i18n="hero">{localeCopy.hero}</p>
-					<p id="sub-copy" data-i18n="sub">{localeCopy.sub}</p>
-					<button id="contact-btn" type="button" data-i18n="cta">{localeCopy.cta}</button>
-				</div>
-
-				<div class="hero-visual">
-					<HeroArtifact client:load accentColor={config.design.primaryColor} intensity={config.design.threeJsIntensity} />
-				</div>
-			</section>
-
-			<section class="showcase glass-card">
-				<div class="showcase-head">
-					<h2 data-i18n="showcaseTitle">{localeCopy.showcaseTitle}</h2>
-					<p data-i18n="showcaseLead">{localeCopy.showcaseLead}</p>
-				</div>
-				<div class="showcase-grid">
-					{showcaseShots.map((shot, index) => (
-						<figure class={`shot shot--${index + 1}`} data-shot data-shot-src={shot.src} data-shot-title-key={shot.titleKey}>
-							<img src={shot.src} alt={localeCopy[shot.altKey]} data-i18n-alt={shot.altKey} loading="lazy" />
-							<figcaption>
-								<h3 data-i18n={shot.titleKey}>{localeCopy[shot.titleKey]}</h3>
-								<p data-i18n={shot.descKey}>{localeCopy[shot.descKey]}</p>
-							</figcaption>
-						</figure>
-					))}
-				</div>
-			</section>
-
-			<section class="sections">
-				<article class="section-card glass-card">
-					<h2 data-i18n="pricingTitle">{localeCopy.pricingTitle}</h2>
-					<p data-i18n="pricingBody">{localeCopy.pricingBody}</p>
-				</article>
-				<article class="section-card glass-card">
-					<h2 data-i18n="maintenanceTitle">{localeCopy.maintenanceTitle}</h2>
-					<p data-i18n="maintenanceBody">{localeCopy.maintenanceBody}</p>
-				</article>
-				<article class="section-card glass-card visual-card">
-					<h2 data-i18n="visualTitle">{localeCopy.visualTitle}</h2>
-					<div class="visual-pills">
-						<span data-i18n="visualPill1">{localeCopy.visualPill1}</span>
-						<span data-i18n="visualPill2">{localeCopy.visualPill2}</span>
-						<span data-i18n="visualPill3">{localeCopy.visualPill3}</span>
-						<span data-i18n="visualPill4">{localeCopy.visualPill4}</span>
+			<div class="snap-stage">
+				<section class="hero glass-card">
+					<div class="hero-copy">
+						<h1 data-i18n="headline">{localeCopy.headline}</h1>
+						<p id="hero-copy" data-i18n="hero">{localeCopy.hero}</p>
+						<p id="sub-copy" data-i18n="sub">{localeCopy.sub}</p>
+						<button id="contact-btn" type="button" data-i18n="cta">{localeCopy.cta}</button>
 					</div>
-					<div class="metrics-grid">
-						<div class="metric glass-mini">
-							<strong>72h</strong>
-							<small data-i18n="metricOneLabel">{localeCopy.metricOneLabel}</small>
-						</div>
-						<div class="metric glass-mini">
-							<strong>24/7</strong>
-							<small data-i18n="metricTwoLabel">{localeCopy.metricTwoLabel}</small>
-						</div>
-						<div class="metric glass-mini">
-							<strong>1:1</strong>
-							<small data-i18n="metricThreeLabel">{localeCopy.metricThreeLabel}</small>
-						</div>
+
+					<div class="hero-visual">
+						<HeroArtifact client:load accentColor={config.design.primaryColor} intensity={config.design.threeJsIntensity} />
 					</div>
-				</article>
-			</section>
+				</section>
+			</div>
 
-			<section class="team-links glass-card">
-				<h2 data-i18n="linksTitle">{localeCopy.linksTitle}</h2>
-				<p data-i18n="linksLead">{localeCopy.linksLead}</p>
-				<div class="external-links">
-					<a class="link-btn" href={config.company.links.botond} target="_blank" rel="noreferrer">ballabotond.com</a>
-					<a class="link-btn" href={config.company.links.bence} target="_blank" rel="noreferrer">szilagyibence.com</a>
-				</div>
-			</section>
+			<div class="snap-stage">
+				<section class="showcase glass-card">
+					<div class="showcase-head">
+						<h2 data-i18n="showcaseTitle">{localeCopy.showcaseTitle}</h2>
+						<p data-i18n="showcaseLead">{localeCopy.showcaseLead}</p>
+					</div>
+					<div class="showcase-grid">
+						{showcaseShots.map((shot, index) => (
+							<figure class={`shot shot--${index + 1}`} data-shot data-shot-src={shot.src} data-shot-title-key={shot.titleKey}>
+								<img src={shot.src} alt={localeCopy[shot.altKey]} data-i18n-alt={shot.altKey} loading="lazy" />
+								<figcaption>
+									<h3 data-i18n={shot.titleKey}>{localeCopy[shot.titleKey]}</h3>
+									<p data-i18n={shot.descKey}>{localeCopy[shot.descKey]}</p>
+								</figcaption>
+							</figure>
+						))}
+					</div>
+				</section>
+			</div>
 
-			<footer class="footer glass-card">
+			<div class="snap-stage">
+				<section class="sections">
+					<article class="section-card glass-card">
+						<h2 data-i18n="pricingTitle">{localeCopy.pricingTitle}</h2>
+						<p data-i18n="pricingBody">{localeCopy.pricingBody}</p>
+					</article>
+					<article class="section-card glass-card">
+						<h2 data-i18n="maintenanceTitle">{localeCopy.maintenanceTitle}</h2>
+						<p data-i18n="maintenanceBody">{localeCopy.maintenanceBody}</p>
+					</article>
+					<article class="section-card glass-card visual-card">
+						<h2 data-i18n="visualTitle">{localeCopy.visualTitle}</h2>
+						<div class="visual-pills">
+							<span data-i18n="visualPill1">{localeCopy.visualPill1}</span>
+							<span data-i18n="visualPill2">{localeCopy.visualPill2}</span>
+							<span data-i18n="visualPill3">{localeCopy.visualPill3}</span>
+							<span data-i18n="visualPill4">{localeCopy.visualPill4}</span>
+						</div>
+						<div class="metrics-grid">
+							<div class="metric glass-mini">
+								<strong>72h</strong>
+								<small data-i18n="metricOneLabel">{localeCopy.metricOneLabel}</small>
+							</div>
+							<div class="metric glass-mini">
+								<strong>24/7</strong>
+								<small data-i18n="metricTwoLabel">{localeCopy.metricTwoLabel}</small>
+							</div>
+							<div class="metric glass-mini">
+								<strong>1:1</strong>
+								<small data-i18n="metricThreeLabel">{localeCopy.metricThreeLabel}</small>
+							</div>
+						</div>
+					</article>
+				</section>
+			</div>
+
+			<div class="snap-stage">
+				<section class="team-links glass-card">
+					<h2 data-i18n="linksTitle">{localeCopy.linksTitle}</h2>
+					<p data-i18n="linksLead">{localeCopy.linksLead}</p>
+					<div class="external-links">
+						<a class="link-btn" href={config.company.links.botond} target="_blank" rel="noreferrer">ballabotond.com</a>
+						<a class="link-btn" href={config.company.links.bence} target="_blank" rel="noreferrer">szilagyibence.com</a>
+					</div>
+				</section>
+			</div>
+
+			<footer class="footer glass-card floating-footer" id="floating-footer">
 				<span data-i18n="footerTagline">{localeCopy.footerTagline}</span>
 				<span data-i18n="footerConfig">{localeCopy.footerConfig}</span>
 			</footer>
@@ -166,6 +174,7 @@ const showcaseShots: ShowcaseShot[] = [
 			const lightbox = document.querySelector('#lightbox');
 			const lightboxImage = document.querySelector('#lightbox-image');
 			const lightboxTitle = document.querySelector('#lightbox-title');
+			const floatingFooter = document.querySelector('#floating-footer');
 			const dropdowns = Array.from(document.querySelectorAll('.custom-dropdown'));
 			let currentLocale = localStorage.getItem('velox-locale') || 'hu';
 
@@ -313,6 +322,32 @@ const showcaseShots: ShowcaseShot[] = [
 			const preferredDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 			const initialTheme = storedTheme || (preferredDark ? 'dark' : 'light');
 			applyTheme(initialTheme);
+
+			if (floatingFooter) {
+				let lastY = window.scrollY;
+				let ticking = false;
+
+				const updateFooterVisibility = () => {
+					const y = window.scrollY;
+					const delta = y - lastY;
+
+					if (y < 60 || delta < -4) {
+						floatingFooter.classList.remove('is-hidden');
+					} else if (delta > 6) {
+						floatingFooter.classList.add('is-hidden');
+					}
+
+					lastY = y;
+					ticking = false;
+				};
+
+				window.addEventListener('scroll', () => {
+					if (!ticking) {
+						requestAnimationFrame(updateFooterVisibility);
+						ticking = true;
+					}
+				}, { passive: true });
+			}
 		</script>
 	</body>
 </html>

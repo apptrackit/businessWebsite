@@ -5,7 +5,7 @@
   --panel: rgba(255, 255, 255, 0.38);
   --surface: rgba(255, 255, 255, 0.55);
   --surface-hover: rgba(255, 255, 255, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.14);
   --shadow: rgba(26, 26, 26, 0.1);
 }
 
@@ -16,7 +16,7 @@
   --panel: rgba(20, 24, 36, 0.58);
   --surface: rgba(16, 19, 30, 0.74);
   --surface-hover: rgba(31, 36, 55, 0.92);
-  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.14);
   --shadow: rgba(0, 0, 0, 0.35);
 }
 
@@ -39,22 +39,44 @@ body {
   background-attachment: fixed;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .site-shell {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 1.2rem 1rem 4rem;
+  padding: 1.2rem 1rem 7rem;
+}
+
+.snap-stage {
+  min-height: auto;
+  display: block;
+  scroll-margin-top: 5rem;
+}
+
+.snap-stage > * {
+  width: 100%;
+}
+
+.snap-stage + .snap-stage {
+  margin-top: 0.8rem;
+}
+
+.snap-stage--compact {
+  min-height: auto;
 }
 
 .nav {
   position: sticky;
   top: 0.75rem;
-  z-index: 20;
+  z-index: 40;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
   padding: 0.8rem 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .brand {
@@ -82,6 +104,7 @@ body {
   border: 1px solid var(--glass-border);
   background: var(--surface);
   color: var(--fg);
+  cursor: pointer;
 }
 
 .dropdown-label {
@@ -105,7 +128,6 @@ body {
 .custom-dropdown.open .dropdown-caret {
   transform: rotate(180deg) translateY(1px);
 }
-
 .dropdown-menu {
   position: absolute;
   top: calc(100% + 0.5rem);
@@ -238,14 +260,14 @@ button:focus-visible,
 }
 
 .sections {
-  margin-top: 1.2rem;
+  margin-top: 0;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
 }
 
 .showcase {
-  margin-top: 1rem;
+  margin-top: 0;
   padding: 1.1rem;
   background: linear-gradient(145deg, color-mix(in srgb, var(--panel) 88%, var(--primary) 12%), var(--panel));
 }
@@ -459,7 +481,7 @@ button:focus-visible,
 }
 
 .team-links {
-  margin-top: 1rem;
+  margin-top: 0;
   padding: 1.1rem 1.2rem;
 }
 
@@ -481,7 +503,7 @@ button:focus-visible,
 }
 
 .footer {
-  margin-top: 1.2rem;
+  margin-top: 0;
   padding: 1rem;
   display: flex;
   justify-content: space-between;
@@ -490,7 +512,26 @@ button:focus-visible,
   gap: 0.8rem;
 }
 
+.floating-footer {
+  position: fixed;
+  left: 50%;
+  bottom: 0.9rem;
+  width: min(1120px, calc(100vw - 2rem));
+  z-index: 45;
+  transform: translateX(-50%);
+  transition: transform 0.24s ease, opacity 0.24s ease;
+}
+
+.floating-footer.is-hidden {
+  transform: translate(-50%, 135%);
+  opacity: 0;
+}
+
 @media (max-width: 900px) {
+  .snap-stage {
+    padding-block: 0;
+  }
+
   .hero {
     grid-template-columns: 1fr;
   }
@@ -554,6 +595,13 @@ button:focus-visible,
 
   .shot p {
     font-size: 0.94rem;
+  }
+
+  .floating-footer {
+    width: calc(100vw - 1rem);
+    bottom: 0.5rem;
+    padding: 0.8rem;
+    font-size: 0.92rem;
   }
 }
 
