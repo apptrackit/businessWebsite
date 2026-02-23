@@ -10,6 +10,8 @@ const initialBotondLink = config.company.links.botond[activeLocale] ?? config.co
 const initialBenceLink = config.company.links.bence[activeLocale] ?? config.company.links.bence.en;
 const initialBotondLabel = initialBotondLink.replace('https://', '');
 const initialBenceLabel = initialBenceLink.replace('https://', '');
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`;
+const faviconHref = withBase('favicon.svg?v=2');
 type LocaleCopy = typeof localeCopy;
 
 interface ShowcaseShot {
@@ -20,20 +22,20 @@ interface ShowcaseShot {
 }
 
 const showcaseShots: ShowcaseShot[] = [
-	{ src: '/images/placeholders/concept-1.svg', altKey: 'shotOneAlt', titleKey: 'shotOneTitle', descKey: 'shotOneDesc' },
-	{ src: '/images/placeholders/concept-2.svg', altKey: 'shotTwoAlt', titleKey: 'shotTwoTitle', descKey: 'shotTwoDesc' },
-	{ src: '/images/placeholders/concept-3.svg', altKey: 'shotThreeAlt', titleKey: 'shotThreeTitle', descKey: 'shotThreeDesc' },
-	{ src: '/images/placeholders/concept-4.svg', altKey: 'shotFourAlt', titleKey: 'shotFourTitle', descKey: 'shotFourDesc' },
-	{ src: '/images/placeholders/concept-5.svg', altKey: 'shotFiveAlt', titleKey: 'shotFiveTitle', descKey: 'shotFiveDesc' },
-	{ src: '/images/placeholders/concept-6.svg', altKey: 'shotSixAlt', titleKey: 'shotSixTitle', descKey: 'shotSixDesc' }
+	{ src: withBase('images/placeholders/concept-1.svg'), altKey: 'shotOneAlt', titleKey: 'shotOneTitle', descKey: 'shotOneDesc' },
+	{ src: withBase('images/placeholders/concept-2.svg'), altKey: 'shotTwoAlt', titleKey: 'shotTwoTitle', descKey: 'shotTwoDesc' },
+	{ src: withBase('images/placeholders/concept-3.svg'), altKey: 'shotThreeAlt', titleKey: 'shotThreeTitle', descKey: 'shotThreeDesc' },
+	{ src: withBase('images/placeholders/concept-4.svg'), altKey: 'shotFourAlt', titleKey: 'shotFourTitle', descKey: 'shotFourDesc' },
+	{ src: withBase('images/placeholders/concept-5.svg'), altKey: 'shotFiveAlt', titleKey: 'shotFiveTitle', descKey: 'shotFiveDesc' },
+	{ src: withBase('images/placeholders/concept-6.svg'), altKey: 'shotSixAlt', titleKey: 'shotSixTitle', descKey: 'shotSixDesc' }
 ];
 ---
 
 <html lang={activeLocale}>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
-		<link rel="shortcut icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+		<link rel="icon" type="image/svg+xml" href={faviconHref} />
+		<link rel="shortcut icon" type="image/svg+xml" href={faviconHref} />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<ViewTransitions />
@@ -43,7 +45,7 @@ const showcaseShots: ShowcaseShot[] = [
 		<main class="site-shell">
 			<nav class="nav glass-card floating-header" id="floating-header">
 				<div class="brand">
-					<img class="brand-mark" src="/favicon.svg" alt="Tarckit logo" width="22" height="22" />
+					<img class="brand-mark" src={withBase('favicon.svg')} alt="Tarckit logo" width="22" height="22" />
 					<span>{config.company.name}</span>
 				</div>
 				<div class="nav-links nav-controls">
