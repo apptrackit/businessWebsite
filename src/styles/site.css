@@ -40,13 +40,26 @@ body {
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 .site-shell {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 1.2rem 1rem 7rem;
+  padding: 5.2rem 1rem 7rem;
 }
 
 .snap-stage {
@@ -60,7 +73,7 @@ html {
 }
 
 .snap-stage + .snap-stage {
-  margin-top: 0.8rem;
+  margin-top: 1.5rem;
 }
 
 .snap-stage--compact {
@@ -68,8 +81,7 @@ html {
 }
 
 .nav {
-  position: sticky;
-  top: 0.75rem;
+  position: relative;
   z-index: 40;
   display: flex;
   justify-content: space-between;
@@ -77,6 +89,21 @@ html {
   gap: 1rem;
   padding: 0.8rem 1rem;
   margin-bottom: 1rem;
+}
+
+.floating-header {
+  position: fixed;
+  left: 50%;
+  top: 0.75rem;
+  width: min(1120px, calc(100vw - 2rem));
+  z-index: 50;
+  transform: translateX(-50%);
+  transition: transform 0.24s ease, opacity 0.24s ease;
+}
+
+.floating-header.is-hidden {
+  transform: translate(-50%, -140%);
+  opacity: 0;
 }
 
 .brand {
@@ -556,6 +583,10 @@ button:focus-visible,
 }
 
 @media (max-width: 720px) {
+  .site-shell {
+    padding-top: 6rem;
+  }
+
   .nav {
     align-items: flex-start;
     flex-direction: column;
@@ -602,6 +633,12 @@ button:focus-visible,
     bottom: 0.5rem;
     padding: 0.8rem;
     font-size: 0.92rem;
+  }
+
+  .floating-header {
+    width: calc(100vw - 1rem);
+    top: 0.5rem;
+    padding: 0.7rem 0.8rem;
   }
 }
 

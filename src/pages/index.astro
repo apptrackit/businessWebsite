@@ -41,7 +41,7 @@ const showcaseShots: ShowcaseShot[] = [
 	</head>
 	<body style={`--primary: ${config.design.primaryColor};`}>
 		<main class="site-shell">
-			<nav class="nav glass-card">
+			<nav class="nav glass-card floating-header" id="floating-header">
 				<div class="brand">{config.company.name}</div>
 				<div class="nav-links nav-controls">
 					<div class="custom-dropdown" data-dropdown="locale">
@@ -175,6 +175,7 @@ const showcaseShots: ShowcaseShot[] = [
 			const themeCurrent = document.querySelector('#theme-current');
 			const ctaNode = document.querySelector('#contact-btn');
 			const root = document.documentElement;
+			const floatingHeader = document.querySelector('#floating-header');
 			const botondLink = document.querySelector('#botond-link');
 			const benceLink = document.querySelector('#bence-link');
 			const lightbox = document.querySelector('#lightbox');
@@ -342,18 +343,20 @@ const showcaseShots: ShowcaseShot[] = [
 			const initialTheme = storedTheme || (preferredDark ? 'dark' : 'light');
 			applyTheme(initialTheme);
 
-			if (floatingFooter) {
+			if (floatingFooter || floatingHeader) {
 				let lastY = window.scrollY;
 				let ticking = false;
 
-				const updateFooterVisibility = () => {
+				const updateBarsVisibility = () => {
 					const y = window.scrollY;
 					const delta = y - lastY;
 
 					if (y < 60 || delta < -4) {
-						floatingFooter.classList.remove('is-hidden');
+						floatingFooter?.classList.remove('is-hidden');
+						floatingHeader?.classList.remove('is-hidden');
 					} else if (delta > 6) {
-						floatingFooter.classList.add('is-hidden');
+						floatingFooter?.classList.add('is-hidden');
+						floatingHeader?.classList.add('is-hidden');
 					}
 
 					lastY = y;
@@ -362,10 +365,34 @@ const showcaseShots: ShowcaseShot[] = [
 
 				window.addEventListener('scroll', () => {
 					if (!ticking) {
-						requestAnimationFrame(updateFooterVisibility);
+						requestAnimationFrame(updateBarsVisibility);
 						ticking = true;
 					}
 				}, { passive: true });
+			}
+		</script>
+
+		<script>
+			import Lenis from 'lenis';
+
+			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+			if (!reduceMotion) {
+				const lenis = new Lenis({
+					duration: 1,
+					easing: (t) => 1 - Math.pow(1 - t, 3),
+					smoothWheel: true,
+					syncTouch: false,
+					touchMultiplier: 1.15,
+					wheelMultiplier: 0.95
+				});
+
+				const raf = (time: number) => {
+					lenis.raf(time);
+					requestAnimationFrame(raf);
+				};
+
+				requestAnimationFrame(raf);
 			}
 		</script>
 	</body>
