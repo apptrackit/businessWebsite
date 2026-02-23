@@ -422,7 +422,7 @@ const showcaseShots: ShowcaseShot[] = [
 			if (floatingFooter || floatingHeader) {
 				let lastY = window.scrollY;
 				let ticking = false;
-				const shouldAnimateBars = () => window.innerWidth > 900;
+				const shouldAnimateBars = () => window.innerWidth > 720;
 
 				const updateBarsVisibility = () => {
 					if (!shouldAnimateBars()) {
@@ -436,10 +436,10 @@ const showcaseShots: ShowcaseShot[] = [
 					const y = window.scrollY;
 					const delta = y - lastY;
 
-					if (y < 60 || delta < -4) {
+					if (y < 56 || delta < -2) {
 						floatingFooter?.classList.remove('is-hidden');
 						floatingHeader?.classList.remove('is-hidden');
-					} else if (delta > 6) {
+					} else if (delta > 2) {
 						floatingFooter?.classList.add('is-hidden');
 						floatingHeader?.classList.add('is-hidden');
 					}
