@@ -10,7 +10,10 @@ const initialBotondLink = config.company.links.botond[activeLocale] ?? config.co
 const initialBenceLink = config.company.links.bence[activeLocale] ?? config.company.links.bence.en;
 const initialBotondLabel = initialBotondLink.replace('https://', '');
 const initialBenceLabel = initialBenceLink.replace('https://', '');
-const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`;
+const withBase = (path: string) => {
+	const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+	return `${base}${path.replace(/^\/+/, '')}`;
+};
 const faviconHref = withBase('favicon.svg?v=2');
 type LocaleCopy = typeof localeCopy;
 

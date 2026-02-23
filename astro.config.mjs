@@ -7,7 +7,7 @@ const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1] ?? 'business
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://your-github-username.github.io',
+  site: 'https://apptrackit.github.io',
   base: process.env.GITHUB_ACTIONS ? `/${repositoryName}` : '/',
   integrations: [react()]
 });
