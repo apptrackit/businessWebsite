@@ -516,7 +516,7 @@ const showcaseShots: ShowcaseShot[] = [
 			if (floatingFooter || floatingHeader) {
 				let lastY = window.scrollY;
 				let ticking = false;
-				const shouldAnimateBars = () => window.innerWidth > 720;
+				const shouldAnimateBars = () => true;
 
 				const updateBarsVisibility = () => {
 					if (!shouldAnimateBars()) {
