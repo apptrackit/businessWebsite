@@ -58,8 +58,8 @@
       "metricThreeLabel": "Launch assistance",
       "linksTitle": "Meet the developers",
       "linksLead": "You can review our personal sites and previous work here.",
-      "footerTagline": "Tarckit · Fast delivery, premium execution",
-      "footerConfig": "Build-ready in days · fair, project-based pricing"
+      "footerTagline": "© Tarckit. All rights reserved.",
+      "footerConfig": ""
     },
     "hu": {
       "headline": "Prémium webes jelenlét. A vállalkozásod tempójában szállítva.",
@@ -106,8 +106,8 @@
       "metricThreeLabel": "Élesítési támogatás",
       "linksTitle": "Ismerd meg a fejlesztőket",
       "linksLead": "Itt találod a személyes oldalainkat és referencia munkáinkat.",
-      "footerTagline": "Tarckit · Gyors szállítás, prémium megvalósítás",
-      "footerConfig": "Pár nap alatt indulásra kész · korrekt, projektalapú árazás"
+      "footerTagline": "© Tarckit. Minden jog fenntartva.",
+      "footerConfig": ""
     }
   },
   "design": {
