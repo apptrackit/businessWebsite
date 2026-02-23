@@ -4,7 +4,7 @@ import HeroArtifact from '../components/HeroArtifact';
 import config from '../config/config.json';
 import '../styles/site.css';
 
-const activeLocale = 'en';
+const activeLocale = 'hu';
 const localeCopy = config.locales[activeLocale];
 ---
 
@@ -23,26 +23,38 @@ const localeCopy = config.locales[activeLocale];
 			<nav class="nav glass-card">
 				<div class="brand">{config.company.name}</div>
 				<div class="nav-links nav-controls">
-					<div class="theme-switch" role="group" aria-label="Theme switch">
-						<button type="button" data-theme-btn="light">Light</button>
-						<button type="button" data-theme-btn="dark">Dark</button>
+					<div class="custom-dropdown" data-dropdown="locale">
+						<button class="dropdown-trigger" type="button" aria-expanded="false" aria-controls="locale-menu">
+							<span class="dropdown-label" data-i18n="languageLabel">{localeCopy.languageLabel}</span>
+							<span class="dropdown-value" id="locale-current">HU</span>
+							<span class="dropdown-caret" aria-hidden="true">⌄</span>
+						</button>
+						<div class="dropdown-menu" id="locale-menu" role="menu">
+							<button class="dropdown-item" type="button" data-locale-value="hu">HU</button>
+							<button class="dropdown-item" type="button" data-locale-value="en">EN</button>
+						</div>
 					</div>
-					<a class="link-btn" href={config.company.links.botond} target="_blank" rel="noreferrer">ballabotond.com</a>
-					<a class="link-btn" href={config.company.links.bence} target="_blank" rel="noreferrer">szilagyibence.com</a>
+
+					<div class="custom-dropdown" data-dropdown="theme">
+						<button class="dropdown-trigger" type="button" aria-expanded="false" aria-controls="theme-menu">
+							<span class="dropdown-label" data-i18n="themeLabel">{localeCopy.themeLabel}</span>
+							<span class="dropdown-value" id="theme-current" data-i18n="themeDark">{localeCopy.themeDark}</span>
+							<span class="dropdown-caret" aria-hidden="true">⌄</span>
+						</button>
+						<div class="dropdown-menu" id="theme-menu" role="menu">
+							<button class="dropdown-item" type="button" data-theme-value="light" data-i18n="themeLight">{localeCopy.themeLight}</button>
+							<button class="dropdown-item" type="button" data-theme-value="dark" data-i18n="themeDark">{localeCopy.themeDark}</button>
+						</div>
+					</div>
 				</div>
 			</nav>
 
 			<section class="hero glass-card">
 				<div class="hero-copy">
-					<h1>High-End Web presence. Delivered at the speed of your business.</h1>
-					<p id="hero-copy">{localeCopy.hero}</p>
-					<p id="sub-copy">{localeCopy.sub}</p>
-					<button id="contact-btn" type="button">{localeCopy.cta}</button>
-
-					<div class="locale-switch">
-						<button type="button" data-locale="en">EN</button>
-						<button type="button" data-locale="hu">HU</button>
-					</div>
+					<h1 data-i18n="headline">{localeCopy.headline}</h1>
+					<p id="hero-copy" data-i18n="hero">{localeCopy.hero}</p>
+					<p id="sub-copy" data-i18n="sub">{localeCopy.sub}</p>
+					<button id="contact-btn" type="button" data-i18n="cta">{localeCopy.cta}</button>
 				</div>
 
 				<div class="hero-visual">
@@ -52,44 +64,158 @@ const localeCopy = config.locales[activeLocale];
 
 			<section class="sections">
 				<article class="section-card glass-card">
-					<h2>Fair, individualized pricing</h2>
-					<p>
-						We don't have a pricing table. Why? Because a local bakery shouldn't pay the same as a venture-backed startup.
-						We look at your project, your scale, and find a number that makes sense for both of us. No hidden fees, just
-						honest code.
-					</p>
+					<h2 data-i18n="pricingTitle">{localeCopy.pricingTitle}</h2>
+					<p data-i18n="pricingBody">{localeCopy.pricingBody}</p>
 				</article>
 				<article class="section-card glass-card">
-					<h2>Maintenance that stays with you</h2>
-					<p>
-						A website is a living thing. We don't just 'hand over the keys' and disappear. We host, maintain, and update your
-						site so it never goes out of style.
-					</p>
+					<h2 data-i18n="maintenanceTitle">{localeCopy.maintenanceTitle}</h2>
+					<p data-i18n="maintenanceBody">{localeCopy.maintenanceBody}</p>
+				</article>
+				<article class="section-card glass-card visual-card">
+					<h2 data-i18n="visualTitle">{localeCopy.visualTitle}</h2>
+					<div class="visual-pills">
+						<span data-i18n="visualPill1">{localeCopy.visualPill1}</span>
+						<span data-i18n="visualPill2">{localeCopy.visualPill2}</span>
+						<span data-i18n="visualPill3">{localeCopy.visualPill3}</span>
+						<span data-i18n="visualPill4">{localeCopy.visualPill4}</span>
+					</div>
+					<div class="metrics-grid">
+						<div class="metric glass-mini">
+							<strong>72h</strong>
+							<small data-i18n="metricOneLabel">{localeCopy.metricOneLabel}</small>
+						</div>
+						<div class="metric glass-mini">
+							<strong>24/7</strong>
+							<small data-i18n="metricTwoLabel">{localeCopy.metricTwoLabel}</small>
+						</div>
+						<div class="metric glass-mini">
+							<strong>1:1</strong>
+							<small data-i18n="metricThreeLabel">{localeCopy.metricThreeLabel}</small>
+						</div>
+					</div>
 				</article>
 			</section>
 
+			<section class="team-links glass-card">
+				<h2 data-i18n="linksTitle">{localeCopy.linksTitle}</h2>
+				<p data-i18n="linksLead">{localeCopy.linksLead}</p>
+				<div class="external-links">
+					<a class="link-btn" href={config.company.links.botond} target="_blank" rel="noreferrer">ballabotond.com</a>
+					<a class="link-btn" href={config.company.links.bence} target="_blank" rel="noreferrer">szilagyibence.com</a>
+				</div>
+			</section>
+
 			<footer class="footer glass-card">
-				<span>Soft-Tech Hybrid · Light + Dark modes</span>
-				<span>Config-driven UI from src/config/config.json</span>
+				<span data-i18n="footerTagline">{localeCopy.footerTagline}</span>
+				<span data-i18n="footerConfig">{localeCopy.footerConfig}</span>
 			</footer>
 		</main>
 
 		<script is:inline define:vars={{ uiConfig: JSON.stringify(config) }}>
 			const parsedConfig = JSON.parse(uiConfig);
-			const heroNode = document.querySelector('#hero-copy');
-			const subNode = document.querySelector('#sub-copy');
+			const localeCurrent = document.querySelector('#locale-current');
+			const themeCurrent = document.querySelector('#theme-current');
 			const ctaNode = document.querySelector('#contact-btn');
+			const root = document.documentElement;
+			const dropdowns = Array.from(document.querySelectorAll('.custom-dropdown'));
+			let currentLocale = localStorage.getItem('velox-locale') || 'hu';
 
-			document.querySelectorAll('[data-locale]').forEach((button) => {
-				button.addEventListener('click', () => {
-					const key = button.getAttribute('data-locale');
-					const nextLocale = parsedConfig.locales[key];
-					if (!nextLocale) return;
-
-					heroNode.textContent = nextLocale.hero;
-					subNode.textContent = nextLocale.sub;
-					ctaNode.textContent = nextLocale.cta;
+			const closeAllDropdowns = () => {
+				dropdowns.forEach((dropdown) => {
+					dropdown.classList.remove('open');
+					const trigger = dropdown.querySelector('.dropdown-trigger');
+					if (trigger) trigger.setAttribute('aria-expanded', 'false');
 				});
+			};
+
+			const applyLocale = (localeKey) => {
+				const localeData = parsedConfig.locales[localeKey];
+				if (!localeData) return;
+				currentLocale = localeKey;
+
+				document.documentElement.lang = localeKey;
+				document.querySelectorAll('[data-i18n]').forEach((node) => {
+					const key = node.getAttribute('data-i18n');
+					if (!key || !localeData[key]) return;
+					node.textContent = localeData[key];
+				});
+
+				if (localeCurrent) {
+					localeCurrent.textContent = localeKey.toUpperCase();
+				}
+
+				document.querySelectorAll('[data-locale-value]').forEach((item) => {
+					item.classList.toggle('active', item.getAttribute('data-locale-value') === localeKey);
+				});
+
+				const activeTheme = root.getAttribute('data-theme') || 'light';
+				if (themeCurrent) {
+					themeCurrent.textContent = activeTheme === 'dark' ? localeData.themeDark : localeData.themeLight;
+				}
+
+				localStorage.setItem('velox-locale', localeKey);
+			};
+
+			const applyTheme = (theme) => {
+				root.setAttribute('data-theme', theme);
+				document.querySelectorAll('[data-theme-value]').forEach((item) => {
+					item.classList.toggle('active', item.getAttribute('data-theme-value') === theme);
+				});
+
+				if (themeCurrent) {
+					const localeData = parsedConfig.locales[currentLocale] || parsedConfig.locales.hu;
+					themeCurrent.textContent = theme === 'dark' ? localeData.themeDark : localeData.themeLight;
+				}
+
+				localStorage.setItem('velox-theme', theme);
+			};
+
+			const initialLocale = currentLocale;
+			applyLocale(initialLocale);
+
+			document.querySelectorAll('[data-locale-value]').forEach((item) => {
+				item.addEventListener('click', () => {
+					const localeValue = item.getAttribute('data-locale-value');
+					if (!localeValue) return;
+					applyLocale(localeValue);
+					closeAllDropdowns();
+				});
+			});
+
+			document.querySelectorAll('[data-theme-value]').forEach((item) => {
+				item.addEventListener('click', () => {
+					const themeValue = item.getAttribute('data-theme-value');
+					if (!themeValue) return;
+					applyTheme(themeValue);
+					closeAllDropdowns();
+				});
+			});
+
+			dropdowns.forEach((dropdown) => {
+				const trigger = dropdown.querySelector('.dropdown-trigger');
+				if (!trigger) return;
+
+				trigger.addEventListener('click', (event) => {
+					event.stopPropagation();
+					const isOpen = dropdown.classList.contains('open');
+					closeAllDropdowns();
+					if (!isOpen) {
+						dropdown.classList.add('open');
+						trigger.setAttribute('aria-expanded', 'true');
+					}
+				});
+			});
+
+			document.addEventListener('click', (event) => {
+				if (!event.target.closest('.custom-dropdown')) {
+					closeAllDropdowns();
+				}
+			});
+
+			document.addEventListener('keydown', (event) => {
+				if (event.key === 'Escape') {
+					closeAllDropdowns();
+				}
 			});
 
 			if (ctaNode) {
@@ -98,21 +224,10 @@ const localeCopy = config.locales[activeLocale];
 				ctaNode.addEventListener('focus', triggerRipple);
 			}
 
-			const root = document.documentElement;
 			const storedTheme = localStorage.getItem('velox-theme');
 			const preferredDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 			const initialTheme = storedTheme || (preferredDark ? 'dark' : 'light');
-			root.setAttribute('data-theme', initialTheme);
-
-			document.querySelectorAll('[data-theme-btn]').forEach((button) => {
-				button.addEventListener('click', () => {
-					const nextTheme = button.getAttribute('data-theme-btn');
-					if (!nextTheme) return;
-
-					root.setAttribute('data-theme', nextTheme);
-					localStorage.setItem('velox-theme', nextTheme);
-				});
-			});
+			applyTheme(initialTheme);
 		</script>
 	</body>
 </html>
