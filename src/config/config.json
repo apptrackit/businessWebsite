@@ -1,6 +1,6 @@
 {
   "company": {
-    "name": "Velox Sites",
+    "name": "Tarckit",
     "links": {
       "botond": {
         "hu": "https://ballabotond.hu",
@@ -58,7 +58,7 @@
       "metricThreeLabel": "Launch assistance",
       "linksTitle": "Meet the developers",
       "linksLead": "You can review our personal sites and previous work here.",
-      "footerTagline": "Velox Sites · Fast delivery, premium execution",
+      "footerTagline": "Tarckit · Fast delivery, premium execution",
       "footerConfig": "Build-ready in days · fair, project-based pricing"
     },
     "hu": {
@@ -106,7 +106,7 @@
       "metricThreeLabel": "Élesítési támogatás",
       "linksTitle": "Ismerd meg a fejlesztőket",
       "linksLead": "Itt találod a személyes oldalainkat és referencia munkáinkat.",
-      "footerTagline": "Velox Sites · Gyors szállítás, prémium megvalósítás",
+      "footerTagline": "Tarckit · Gyors szállítás, prémium megvalósítás",
       "footerConfig": "Pár nap alatt indulásra kész · korrekt, projektalapú árazás"
     }
   },
