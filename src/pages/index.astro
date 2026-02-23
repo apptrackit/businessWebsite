@@ -6,6 +6,10 @@ import '../styles/site.css';
 
 const activeLocale = 'hu';
 const localeCopy = config.locales[activeLocale];
+const initialBotondLink = config.company.links.botond[activeLocale] ?? config.company.links.botond.en;
+const initialBenceLink = config.company.links.bence[activeLocale] ?? config.company.links.bence.en;
+const initialBotondLabel = initialBotondLink.replace('https://', '');
+const initialBenceLabel = initialBenceLink.replace('https://', '');
 type LocaleCopy = typeof localeCopy;
 
 interface ShowcaseShot {
@@ -142,8 +146,8 @@ const showcaseShots: ShowcaseShot[] = [
 					<h2 data-i18n="linksTitle">{localeCopy.linksTitle}</h2>
 					<p data-i18n="linksLead">{localeCopy.linksLead}</p>
 					<div class="external-links">
-						<a class="link-btn" href={config.company.links.botond} target="_blank" rel="noreferrer">ballabotond.com</a>
-						<a class="link-btn" href={config.company.links.bence} target="_blank" rel="noreferrer">szilagyibence.com</a>
+						<a class="link-btn" id="botond-link" href={initialBotondLink} target="_blank" rel="noreferrer">{initialBotondLabel}</a>
+						<a class="link-btn" id="bence-link" href={initialBenceLink} target="_blank" rel="noreferrer">{initialBenceLabel}</a>
 					</div>
 				</section>
 			</div>
@@ -171,6 +175,8 @@ const showcaseShots: ShowcaseShot[] = [
 			const themeCurrent = document.querySelector('#theme-current');
 			const ctaNode = document.querySelector('#contact-btn');
 			const root = document.documentElement;
+			const botondLink = document.querySelector('#botond-link');
+			const benceLink = document.querySelector('#bence-link');
 			const lightbox = document.querySelector('#lightbox');
 			const lightboxImage = document.querySelector('#lightbox-image');
 			const lightboxTitle = document.querySelector('#lightbox-title');
@@ -218,6 +224,19 @@ const showcaseShots: ShowcaseShot[] = [
 				}
 
 				localStorage.setItem('velox-locale', localeKey);
+
+				const botondUrl = parsedConfig.company?.links?.botond?.[localeKey] || parsedConfig.company?.links?.botond?.en;
+				const benceUrl = parsedConfig.company?.links?.bence?.[localeKey] || parsedConfig.company?.links?.bence?.en;
+
+				if (botondLink && botondUrl) {
+					botondLink.setAttribute('href', botondUrl);
+					botondLink.textContent = botondUrl.replace('https://', '');
+				}
+
+				if (benceLink && benceUrl) {
+					benceLink.setAttribute('href', benceUrl);
+					benceLink.textContent = benceUrl.replace('https://', '');
+				}
 			};
 
 			const applyTheme = (theme) => {

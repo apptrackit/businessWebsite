@@ -2,8 +2,14 @@
   "company": {
     "name": "Velox Sites",
     "links": {
-      "botond": "https://ballabotond.com",
-      "bence": "https://szilagyibence.com"
+      "botond": {
+        "hu": "https://ballabotond.hu",
+        "en": "https://ballabotond.com"
+      },
+      "bence": {
+        "hu": "https://szilagyibence.hu",
+        "en": "https://szilagyibence.com"
+      }
     }
   },
   "locales": {
