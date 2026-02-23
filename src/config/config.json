@@ -1,0 +1,26 @@
+{
+  "company": {
+    "name": "Velox Sites",
+    "links": {
+      "botond": "https://ballabotond.com",
+      "bence": "https://szilagyibence.com"
+    }
+  },
+  "locales": {
+    "en": {
+      "hero": "We ship sites while others are still in meetings.",
+      "sub": "Boutique web development with fair, individualized pricing.",
+      "cta": "Start a Project"
+    },
+    "hu": {
+      "hero": "Mi már kész vagyunk, amíg mások még csak terveznek.",
+      "sub": "Egyedi webfejlesztés méltányos, személyre szabott árazással.",
+      "cta": "Projekt indítása"
+    }
+  },
+  "design": {
+    "primaryColor": "#4F46E5",
+    "glassmorphism": true,
+    "threeJsIntensity": 0.65
+  }
+}

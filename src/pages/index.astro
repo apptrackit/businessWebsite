@@ -1,17 +1,118 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
+import HeroArtifact from '../components/HeroArtifact';
+import config from '../config/config.json';
+import '../styles/site.css';
 
+const activeLocale = 'en';
+const localeCopy = config.locales[activeLocale];
 ---
 
-<html lang="en">
+<html lang={activeLocale}>
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<ViewTransitions />
+		<title>{config.company.name} — High-End Web Presence</title>
 	</head>
-	<body>
-		<h1>Astro</h1>
+	<body style={`--primary: ${config.design.primaryColor};`}>
+		<main class="site-shell">
+			<nav class="nav glass-card">
+				<div class="brand">{config.company.name}</div>
+				<div class="nav-links nav-controls">
+					<div class="theme-switch" role="group" aria-label="Theme switch">
+						<button type="button" data-theme-btn="light">Light</button>
+						<button type="button" data-theme-btn="dark">Dark</button>
+					</div>
+					<a class="link-btn" href={config.company.links.botond} target="_blank" rel="noreferrer">ballabotond.com</a>
+					<a class="link-btn" href={config.company.links.bence} target="_blank" rel="noreferrer">szilagyibence.com</a>
+				</div>
+			</nav>
+
+			<section class="hero glass-card">
+				<div class="hero-copy">
+					<h1>High-End Web presence. Delivered at the speed of your business.</h1>
+					<p id="hero-copy">{localeCopy.hero}</p>
+					<p id="sub-copy">{localeCopy.sub}</p>
+					<button id="contact-btn" type="button">{localeCopy.cta}</button>
+
+					<div class="locale-switch">
+						<button type="button" data-locale="en">EN</button>
+						<button type="button" data-locale="hu">HU</button>
+					</div>
+				</div>
+
+				<div class="hero-visual">
+					<HeroArtifact client:load accentColor={config.design.primaryColor} intensity={config.design.threeJsIntensity} />
+				</div>
+			</section>
+
+			<section class="sections">
+				<article class="section-card glass-card">
+					<h2>Fair, individualized pricing</h2>
+					<p>
+						We don't have a pricing table. Why? Because a local bakery shouldn't pay the same as a venture-backed startup.
+						We look at your project, your scale, and find a number that makes sense for both of us. No hidden fees, just
+						honest code.
+					</p>
+				</article>
+				<article class="section-card glass-card">
+					<h2>Maintenance that stays with you</h2>
+					<p>
+						A website is a living thing. We don't just 'hand over the keys' and disappear. We host, maintain, and update your
+						site so it never goes out of style.
+					</p>
+				</article>
+			</section>
+
+			<footer class="footer glass-card">
+				<span>Soft-Tech Hybrid · Light + Dark modes</span>
+				<span>Config-driven UI from src/config/config.json</span>
+			</footer>
+		</main>
+
+		<script is:inline define:vars={{ uiConfig: JSON.stringify(config) }}>
+			const parsedConfig = JSON.parse(uiConfig);
+			const heroNode = document.querySelector('#hero-copy');
+			const subNode = document.querySelector('#sub-copy');
+			const ctaNode = document.querySelector('#contact-btn');
+
+			document.querySelectorAll('[data-locale]').forEach((button) => {
+				button.addEventListener('click', () => {
+					const key = button.getAttribute('data-locale');
+					const nextLocale = parsedConfig.locales[key];
+					if (!nextLocale) return;
+
+					heroNode.textContent = nextLocale.hero;
+					subNode.textContent = nextLocale.sub;
+					ctaNode.textContent = nextLocale.cta;
+				});
+			});
+
+			if (ctaNode) {
+				const triggerRipple = () => window.dispatchEvent(new CustomEvent('hero-artifact:ripple'));
+				ctaNode.addEventListener('mouseenter', triggerRipple);
+				ctaNode.addEventListener('focus', triggerRipple);
+			}
+
+			const root = document.documentElement;
+			const storedTheme = localStorage.getItem('velox-theme');
+			const preferredDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+			const initialTheme = storedTheme || (preferredDark ? 'dark' : 'light');
+			root.setAttribute('data-theme', initialTheme);
+
+			document.querySelectorAll('[data-theme-btn]').forEach((button) => {
+				button.addEventListener('click', () => {
+					const nextTheme = button.getAttribute('data-theme-btn');
+					if (!nextTheme) return;
+
+					root.setAttribute('data-theme', nextTheme);
+					localStorage.setItem('velox-theme', nextTheme);
+				});
+			});
+		</script>
 	</body>
 </html>

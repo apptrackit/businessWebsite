@@ -1,5 +1,13 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
+import react from '@astrojs/react';
+
+const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1] ?? 'businessWebsite';
+
 // https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+  site: 'https://your-github-username.github.io',
+  base: process.env.GITHUB_ACTIONS ? `/${repositoryName}` : '/',
+  integrations: [react()]
+});
