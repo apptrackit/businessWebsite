@@ -1,43 +1,42 @@
-# Astro Starter Kit: Minimal
+# Velox Sites — Astro + React Three Fiber
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Soft-Tech Hybrid landing page with:
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- Ghost White (`#F4F4F9`) base and Eerie Black (`#1A1A1A`) typography
+- Glassmorphism cards (`backdrop-filter: blur(12px)` + `1px rgba(255,255,255,0.2)` border)
+- Floating 3D icosahedron hero artifact with mouse follow, idle rotation, and scroll-driven distortion
+- Magnetic custom cursor for outbound profile links
+- Astro View Transitions enabled
 
-## 🚀 Project Structure
+## Config-first business logic
 
-Inside of your Astro project, you'll see the following folders and files:
+All core copy and design flags are mapped from [src/config/config.json](src/config/config.json).
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Update this single file to change:
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+- `company.name`
+- `company.links.botond` / `company.links.bence`
+- `locales.en` / `locales.hu` hero copy and CTA text
+- `design.primaryColor`
+- `design.threeJsIntensity`
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Local development
 
-Any static assets, like images, can be placed in the `public/` directory.
+From project root:
 
-## 🧞 Commands
+- `npm install`
+- `npm run dev`
+- `npm run build`
+- `npm run preview`
 
-All commands are run from the root of the project, from a terminal:
+## GitHub Pages deployment (official Astro flow)
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+This repo includes [deploy workflow](.github/workflows/deploy.yml) for `gh-pages` via GitHub Pages Actions.
 
-## 👀 Want to learn more?
+1. Build command is `npm run build`.
+2. Update `site` in [astro.config.mjs](astro.config.mjs) to your real GitHub Pages origin (example: `https://yourname.github.io`).
+3. Keep `base` aligned with your repository name (already handled automatically in Actions using `GITHUB_REPOSITORY`).
+4. Push to `main` to trigger deployment.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+If Pages is not yet enabled, enable **Settings → Pages → Build and deployment: GitHub Actions**.
+# businessWebsite
