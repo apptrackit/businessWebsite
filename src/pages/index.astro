@@ -17,7 +17,7 @@ const withBase = (path: string) => {
 
 const siteUrl = new URL(import.meta.env.SITE ?? 'https://tarckit.com');
 const canonicalUrl = new URL(import.meta.env.BASE_URL || '/', siteUrl).toString();
-const ogImageUrl = new URL(withBase('images/placeholders/concept-1.svg'), siteUrl).toString();
+const ogImageUrl = new URL(withBase('images/showcase/shot-1.svg'), siteUrl).toString();
 const seoTitle = `${config.company.name} | ${localeCopy.headline}`;
 const seoDescription = `${localeCopy.hero} ${localeCopy.sub}`;
 const seoKeywordsByLocale = {
@@ -89,12 +89,12 @@ interface ShowcaseShot {
 }
 
 const showcaseShots: ShowcaseShot[] = [
-	{ src: withBase('images/placeholders/concept-1.svg'), altKey: 'shotOneAlt', titleKey: 'shotOneTitle', descKey: 'shotOneDesc' },
-	{ src: withBase('images/placeholders/concept-2.svg'), altKey: 'shotTwoAlt', titleKey: 'shotTwoTitle', descKey: 'shotTwoDesc' },
-	{ src: withBase('images/placeholders/concept-3.svg'), altKey: 'shotThreeAlt', titleKey: 'shotThreeTitle', descKey: 'shotThreeDesc' },
-	{ src: withBase('images/placeholders/concept-4.svg'), altKey: 'shotFourAlt', titleKey: 'shotFourTitle', descKey: 'shotFourDesc' },
-	{ src: withBase('images/placeholders/concept-5.svg'), altKey: 'shotFiveAlt', titleKey: 'shotFiveTitle', descKey: 'shotFiveDesc' },
-	{ src: withBase('images/placeholders/concept-6.svg'), altKey: 'shotSixAlt', titleKey: 'shotSixTitle', descKey: 'shotSixDesc' }
+	{ src: withBase('images/showcase/shot-1.svg'), altKey: 'shotOneAlt', titleKey: 'shotOneTitle', descKey: 'shotOneDesc' },
+	{ src: withBase('images/showcase/shot-2.svg'), altKey: 'shotTwoAlt', titleKey: 'shotTwoTitle', descKey: 'shotTwoDesc' },
+	{ src: withBase('images/showcase/shot-3.svg'), altKey: 'shotThreeAlt', titleKey: 'shotThreeTitle', descKey: 'shotThreeDesc' },
+	{ src: withBase('images/showcase/shot-4.svg'), altKey: 'shotFourAlt', titleKey: 'shotFourTitle', descKey: 'shotFourDesc' },
+	{ src: withBase('images/showcase/shot-5.svg'), altKey: 'shotFiveAlt', titleKey: 'shotFiveTitle', descKey: 'shotFiveDesc' },
+	{ src: withBase('images/showcase/shot-6.svg'), altKey: 'shotSixAlt', titleKey: 'shotSixTitle', descKey: 'shotSixDesc' }
 ];
 ---
 
@@ -232,42 +232,6 @@ const showcaseShots: ShowcaseShot[] = [
 			</div>
 
 			<div class="snap-stage">
-				<section class="sections">
-					<article class="section-card glass-card">
-						<h2 data-i18n="pricingTitle">{localeCopy.pricingTitle}</h2>
-						<p data-i18n="pricingBody">{localeCopy.pricingBody}</p>
-					</article>
-					<article class="section-card glass-card">
-						<h2 data-i18n="maintenanceTitle">{localeCopy.maintenanceTitle}</h2>
-						<p data-i18n="maintenanceBody">{localeCopy.maintenanceBody}</p>
-					</article>
-					<article class="section-card glass-card visual-card">
-						<h2 data-i18n="visualTitle">{localeCopy.visualTitle}</h2>
-						<div class="visual-pills">
-							<span data-i18n="visualPill1">{localeCopy.visualPill1}</span>
-							<span data-i18n="visualPill2">{localeCopy.visualPill2}</span>
-							<span data-i18n="visualPill3">{localeCopy.visualPill3}</span>
-							<span data-i18n="visualPill4">{localeCopy.visualPill4}</span>
-						</div>
-						<div class="metrics-grid">
-							<div class="metric glass-mini">
-								<strong>72h</strong>
-								<small data-i18n="metricOneLabel">{localeCopy.metricOneLabel}</small>
-							</div>
-							<div class="metric glass-mini">
-								<strong>24/7</strong>
-								<small data-i18n="metricTwoLabel">{localeCopy.metricTwoLabel}</small>
-							</div>
-							<div class="metric glass-mini">
-								<strong>1:1</strong>
-								<small data-i18n="metricThreeLabel">{localeCopy.metricThreeLabel}</small>
-							</div>
-						</div>
-					</article>
-				</section>
-			</div>
-
-			<div class="snap-stage">
 				<section class="team-links glass-card">
 					<h2 data-i18n="linksTitle">{localeCopy.linksTitle}</h2>
 					<p data-i18n="linksLead">{localeCopy.linksLead}</p>
@@ -313,7 +277,7 @@ const showcaseShots: ShowcaseShot[] = [
 			const floatingFooter = document.querySelector('#floating-footer');
 			const footerTagline = document.querySelector('#floating-footer [data-i18n="footerTagline"]');
 			const dropdowns = Array.from(document.querySelectorAll('.custom-dropdown'));
-			let currentLocale = localStorage.getItem('velox-locale') || 'hu';
+			let currentLocale = 'hu';
 
 			const syncFooterTaglineFit = () => {
 				if (!footerTagline) return;
@@ -378,8 +342,6 @@ const showcaseShots: ShowcaseShot[] = [
 				}
 
 				syncMobileControlsCurrent();
-
-				localStorage.setItem('velox-locale', localeKey);
 
 				const botondUrl = parsedConfig.company?.links?.botond?.[localeKey] || parsedConfig.company?.links?.botond?.en;
 				const benceUrl = parsedConfig.company?.links?.bence?.[localeKey] || parsedConfig.company?.links?.bence?.en;

@@ -338,13 +338,6 @@ button:focus-visible,
   display: block;
 }
 
-.sections {
-  margin-top: 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
-}
-
 .showcase {
   margin-top: 0;
   padding: 1.1rem;
@@ -507,74 +500,6 @@ button:focus-visible,
   background: #0b1124;
 }
 
-.section-card {
-  padding: 1.2rem;
-}
-
-.section-card h2 {
-  margin-top: 0;
-  margin-bottom: 0.65rem;
-}
-
-.section-card p {
-  margin: 0;
-  color: var(--muted);
-  max-width: 36ch;
-}
-
-.visual-card {
-  grid-column: 1 / -1;
-  display: grid;
-  gap: 0.9rem;
-}
-
-.visual-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.visual-pills span {
-  border: 1px solid var(--glass-border);
-  background: var(--surface);
-  border-radius: 999px;
-  padding: 0.4rem 0.75rem;
-  font-size: 0.86rem;
-  font-weight: 600;
-}
-
-.metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.55rem;
-}
-
-.glass-mini {
-  border: 1px solid var(--glass-border);
-  background: color-mix(in srgb, var(--surface) 85%, transparent);
-  border-radius: 12px;
-  padding: 0.7rem;
-  min-height: 98px;
-}
-
-.metric {
-  display: grid;
-  gap: 0.2rem;
-}
-
-.metric strong {
-  font-size: 1.05rem;
-}
-
-.metric small {
-  color: var(--muted);
-  line-height: 1.25;
-  font-size: 0.96rem;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-  hyphens: auto;
-}
-
 .team-links {
   margin-top: 0;
   padding: 1.1rem 1.2rem;
@@ -661,13 +586,6 @@ button:focus-visible,
     gap: 0.7rem;
   }
 
-  .sections {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .metrics-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 720px) {
@@ -765,17 +683,8 @@ button:focus-visible,
     filter: drop-shadow(0 0 24px color-mix(in srgb, var(--primary) 65%, transparent));
   }
 
-  .sections {
-    grid-template-columns: 1fr;
-  }
-
-  .visual-card {
-    grid-column: auto;
-  }
-
   .showcase,
-  .team-links,
-  .section-card {
+  .team-links {
     padding: 1rem;
   }
 
@@ -853,7 +762,6 @@ button:focus-visible,
   }
 
   .showcase-head p,
-  .section-card p,
   .team-links p {
     font-size: 0.95rem;
   }
